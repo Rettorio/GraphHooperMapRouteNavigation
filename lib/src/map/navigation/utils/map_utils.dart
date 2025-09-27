@@ -1,7 +1,7 @@
 import 'package:graphhooper_route_navigation/graphhooper_route_navigation.dart';
 import 'dart:math' as math;
 import 'package:vector_math/vector_math.dart' as vector_math;
-import 'dart:math' show asin, cos, sqrt;
+import 'dart:math' show asin, cos, sqrt, Random;
 
 class MapUtils {
   /// Calculate Bearing value between two coordinates
@@ -65,4 +65,21 @@ class MapUtils {
     //return speed in Km per hour
     return speed;
   }
+
+  static String generateRandomHexColor() {
+  final Random random = Random();
+  
+  // Generate a random integer from 0 to 255 for Red, Green, and Blue.
+  final int r = random.nextInt(256);
+  final int g = random.nextInt(256);
+  final int b = random.nextInt(256);
+
+  // Convert each integer to a 2-digit hex string.
+  // `padLeft(2, '0')` ensures that a value like 15 (F) becomes "0F".
+  final String rHex = r.toRadixString(16).padLeft(2, '0');
+  final String gHex = g.toRadixString(16).padLeft(2, '0');
+  final String bHex = b.toRadixString(16).padLeft(2, '0');
+
+  return '#$rHex$gHex$bHex';
+}
 }

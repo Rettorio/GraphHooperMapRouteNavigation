@@ -106,12 +106,12 @@ class MapScreenController extends ChangeNotifier {
   void initiateSourceAndLine() {
     
     if (directionRouteResponse.toJson().isNotEmpty) {
-      Map<String, dynamic> routeResponse = {
-        "geometry": directionRouteResponse.paths![0].points!.toJson(),
-        "duration": directionRouteResponse.paths![0].time,
-        "distance": directionRouteResponse.paths![0].distance,
-      };
-      addSourceAndLineLayer(routeResponse);
+      // Map<String, dynamic> routeResponse = {
+      //   "geometry": directionRouteResponse.paths![0].points!.toJson(),
+      //   "duration": directionRouteResponse.paths![0].time,
+      //   "distance": directionRouteResponse.paths![0].distance,
+      // };
+      addSourceAndLineLayer();
     }
   }
 
@@ -121,22 +121,21 @@ class MapScreenController extends ChangeNotifier {
 
   /// Method to add Source and Line layer
   ///
-  Future<void> addSourceAndLineLayer(
-      Map<String, dynamic> modifiedResponse) async {
+  Future<void> addSourceAndLineLayer() async {
     // add end marker
     addDestinationCircle();
+    var features = directionRouteResponse.paths!.map((path) => {
+      'type': 'Feature',
+      'geometry': path.points!.toJson(),
+      'duration': path.time,
+      'distance': path.distance,
+      'properties': {}
+    }).toList();
 
     // feature collection object
     final fills = {
       "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "id": 0,
-          "properties": <String, dynamic>{},
-          "geometry": modifiedResponse['geometry'],
-        },
-      ],
+      "features": features,
     };
 
     // Remove lineLayer and source if it exists

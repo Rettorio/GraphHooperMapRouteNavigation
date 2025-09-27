@@ -6,6 +6,7 @@ import 'package:graphhooper_route_navigation/graphhooper_route_navigation.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/controllers/navigation_instruction_controller.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/controllers/speed_notifier.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/utils/map_utils.dart';
+import 'package:geolocator/geolocator.dart';
 
 ///
 /// Notifier class for [MapScreen]
@@ -259,6 +260,19 @@ class MapScreenController extends ChangeNotifier {
             userLocation.position.latitude, userLocation.position.longitude),
         zoom: zoomLevel ?? mapZoomLevel,
         bearing: bearing ?? userLocation.bearing!)));
+  }
+
+  Future<void> animateUserToCurrentLocationReal({
+    double? zoomLevel,
+    double? bearing,
+  }) async
+  {
+    final position = await Geolocator.getCurrentPosition();
+    mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    target: LatLng(
+        position.latitude, position.longitude),
+    zoom: zoomLevel ?? mapZoomLevel,
+    bearing: bearing ?? userLocation.bearing!)));
   }
 
   /// Method to stop simulation

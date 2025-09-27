@@ -24,7 +24,7 @@ class MapWidget extends StatelessWidget {
     // map controller
     final mapController = MapControllerProvider.of(context);
     //
-    return MaplibreMap(
+    return MapLibreMap(
       styleString:
           'https://tiles.basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
       onMapCreated: (mapLibreController) {
@@ -40,6 +40,7 @@ class MapWidget extends StatelessWidget {
           mapController.mapZoomLevel,
         );
       },
+      // initialCameraPosition means initial location it didn't depends on the user current physical location itself
       initialCameraPosition: CameraPosition(
         target: LatLng(
             directionRouteResponse

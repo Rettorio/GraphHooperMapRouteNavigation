@@ -405,4 +405,5 @@ class MapScreenController extends ChangeNotifier {
     // animate camera
     mapController?.animateCamera(CameraUpdate.newLatLng(userLocation.position));
   }
+
 }

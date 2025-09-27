@@ -67,12 +67,7 @@ class MapRouteNavigationScreenPageState
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-    return PopScope(
-      canPop: true,
-      onPopInvoked: (bool didPop) {
-        _willPopCallback(didPop);
-      },
-      child: Scaffold(
+    return Scaffold(
         key: _scaffoldKeyRoute,
         body: SafeArea(
           child: ExpandableBottomSheet(
@@ -82,8 +77,7 @@ class MapRouteNavigationScreenPageState
             expandableContent: buildExpandableContentUi(),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildBackgroundUi() {
@@ -118,7 +112,7 @@ class MapRouteNavigationScreenPageState
                 onPressed: () {
                   // animate user to current location
                   final mapScreenController = MapControllerProvider.of(context);
-                  mapScreenController.animateUserToCurrentLocation(
+                  mapScreenController.animateUserToCurrentLocationReal(
                       zoomLevel: 19.0, bearing: 0.0);
                 },
                 iconData: Icons.gps_fixed),

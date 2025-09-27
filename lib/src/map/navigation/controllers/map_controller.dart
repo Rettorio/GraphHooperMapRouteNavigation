@@ -159,24 +159,24 @@ class MapScreenController extends ChangeNotifier {
   /// This method adds start marker which is circle
   /// [Green color] denotes the starting point for the user
   ///
-  // Future<void> addSimulationStartCircle() async {
-  //   // if null return
-  //   if (_mapController == null) {
-  //     return;
-  //   }
+  Future<void> addSimulationStartCircle() async {
+    // if null return
+    if (_mapController == null) {
+      return;
+    }
 
-  //   // starting circle
-  //   startingUserLocationCircle = await _mapController!.addCircle(
-  //     CircleOptions(
-  //         geometry: LatLng(
-  //             directionRouteResponse
-  //                 .paths![0].snappedWaypoints!.coordinates!.first[1],
-  //             directionRouteResponse
-  //                 .paths![0].snappedWaypoints!.coordinates!.first[0]),
-  //         circleColor: NavigationColors.green.toHexStringRGB(),
-  //         circleRadius: 12),
-  //   );
-  // }
+    // starting circle
+    startingUserLocationCircle = await _mapController!.addCircle(
+      CircleOptions(
+          geometry: LatLng(
+              directionRouteResponse
+                  .paths![0].snappedWaypoints!.coordinates!.first[1],
+              directionRouteResponse
+                  .paths![0].snappedWaypoints!.coordinates!.first[0]),
+          circleColor: NavigationColors.green.toHexStringRGB(),
+          circleRadius: 12),
+    );
+  }
 
   /// This method addsend marker which is circle
   /// [Red color] denotes the destination

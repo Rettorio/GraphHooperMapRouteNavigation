@@ -30,6 +30,7 @@ class MapWidget extends StatelessWidget {
       onMapCreated: (mapLibreController) {
         // method which gets executed after the map has been initialized
         mapController.onMapCreated(mapLibreMapController: mapLibreController);
+        mapController.addDestinationCircle();
       },
       onStyleLoadedCallback: () {
         // function to be called after the style has been loadded

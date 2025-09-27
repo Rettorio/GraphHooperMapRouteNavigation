@@ -24,7 +24,7 @@ class NavigationWrapperScreen extends StatefulWidget {
   /// [DirectionRouteResponse] instance
   ///
   final DirectionRouteResponse directionRouteResponse;
-  final Function(UserLocation) onUpdateUserLocation;
+  final Function(UserLocation)? onUpdateUserLocation;
   final bool enableSimulation;
 
   /// [WrapperScreen] constructor
@@ -64,7 +64,9 @@ class _WrapperScreenState extends State<NavigationWrapperScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mapScreenController.setOnUserLocationUpdate(widget.onUpdateUserLocation);
+    if(widget.onUpdateUserLocation != null) {
+      mapScreenController.setOnUserLocationUpdate(widget.onUpdateUserLocation!);
+    }
     return UserSpeedProvider(
       userSpeedNotifier: userSpeedNotifier,
       child: NavigationInstructionProvider(

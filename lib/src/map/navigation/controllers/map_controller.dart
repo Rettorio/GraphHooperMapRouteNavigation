@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:graphhooper_route_navigation/graphhooper_route_navigation.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/controllers/navigation_instruction_controller.dart';

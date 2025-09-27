@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graphhooper_route_navigation/graphhooper_route_navigation.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/controllers/is_simulate_routing_notifier_controller.dart';
+import 'package:graphhooper_route_navigation/src/map/navigation/controllers/map_controller.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/providers/instruction_controller_provider.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/providers/map_controller_provider.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/providers/user_speed_notifier_provider.dart';
@@ -114,6 +115,7 @@ class _MapWidgetState extends State<MapWidget> {
         // function to be called after the style has been loadded
         _onStyleLoadedCallback(
           mapController.mapController!,
+          mapController,
           widget.directionRouteResponse,
           mapController.mapZoomLevel,
         );
@@ -177,9 +179,11 @@ class _MapWidgetState extends State<MapWidget> {
 
   void _onStyleLoadedCallback(
     MapLibreMapController mapLibreMapController,
+    MapScreenController currentMapController,
     DirectionRouteResponse directionRouteResponse,
     double zoomLevel,
   ) async {
+    currentMapController.initiateSourceAndLine();
     mapLibreMapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(

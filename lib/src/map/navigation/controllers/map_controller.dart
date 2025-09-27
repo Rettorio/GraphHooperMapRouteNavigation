@@ -90,15 +90,6 @@ class MapScreenController extends ChangeNotifier {
 
     if (_mapController == null) return;
 
-    if (directionRouteResponse.toJson().isNotEmpty) {
-      Map<String, dynamic> routeResponse = {
-        "geometry": directionRouteResponse.paths![0].points!.toJson(),
-        "duration": directionRouteResponse.paths![0].time,
-        "distance": directionRouteResponse.paths![0].distance,
-      };
-      addSourceAndLineLayer(routeResponse);
-    }
-
     // listener for the zoom level
     _mapController!.addListener(
       () {
@@ -109,6 +100,18 @@ class MapScreenController extends ChangeNotifier {
     // if there are extra computations to be performed then
     if (extraFunc != null) {
       extraFunc.call();
+    }
+  }
+
+  void initiateSourceAndLine() {
+    
+    if (directionRouteResponse.toJson().isNotEmpty) {
+      Map<String, dynamic> routeResponse = {
+        "geometry": directionRouteResponse.paths![0].points!.toJson(),
+        "duration": directionRouteResponse.paths![0].time,
+        "distance": directionRouteResponse.paths![0].distance,
+      };
+      addSourceAndLineLayer(routeResponse);
     }
   }
 

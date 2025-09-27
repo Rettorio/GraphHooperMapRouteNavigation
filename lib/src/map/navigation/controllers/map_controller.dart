@@ -122,7 +122,6 @@ class MapScreenController extends ChangeNotifier {
   ///
   Future<void> addSourceAndLineLayer() async {
     // add end marker
-    addDestinationCircle();
     var features = directionRouteResponse.paths!
         .map(
           (path) => {
@@ -157,6 +156,8 @@ class MapScreenController extends ChangeNotifier {
         lineWidth: 6,
       ),
     );
+    addDestinationCircle();
+
   }
 
   /// This method adds start marker which is circle
@@ -201,14 +202,18 @@ class MapScreenController extends ChangeNotifier {
     // destination circle
     var destinations =
         directionRouteResponse.paths![0].snappedWaypoints!.coordinates ?? [];
-    for (var coordinate in destinations) {
-      _mapController!.addCircle(
-        CircleOptions(
-          geometry: LatLng(coordinate.last,coordinate.first),
-          circleColor: MapUtils.generateRandomHexColor(),
-          circleRadius: 12,
-        ),
-      );
+    if(destinations.isNotEmpty) {
+      print("ZZZ: creating destination circle");
+      destinations.removeAt(0);
+      for (var coordinate in destinations) {
+        _mapController!.addCircle(
+          CircleOptions(
+            geometry: LatLng(coordinate.last,coordinate.first),
+            circleColor: MapUtils.generateRandomHexColor(),
+            circleRadius: 12,
+          ),
+        );
+      }
     }
   }
 

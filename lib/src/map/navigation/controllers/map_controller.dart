@@ -206,6 +206,7 @@ class MapScreenController extends ChangeNotifier {
       print("ZZZ: creating destination circle");
       destinations.removeAt(0);
       for (var coordinate in destinations) {
+        print("ZZZ: creating destination circle at => latLng(${coordinate.last},${coordinate.first})");
         _mapController!.addCircle(
           CircleOptions(
             geometry: LatLng(coordinate.last,coordinate.first),

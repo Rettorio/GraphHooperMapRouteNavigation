@@ -111,9 +111,9 @@ class _MapWidgetState extends State<MapWidget> {
         mapController.onMapCreated(mapLibreMapController: mapLibreController);
         mapController.addDestinationCircle();
       },
-      onStyleLoadedCallback: () {
+      onStyleLoadedCallback: () async {
         // function to be called after the style has been loadded
-        _onStyleLoadedCallback(
+        await _onStyleLoadedCallback(
           mapController.mapController!,
           widget.directionRouteResponse,
           mapController.mapZoomLevel,
@@ -176,7 +176,7 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
-  void _onStyleLoadedCallback(
+  Future<void> _onStyleLoadedCallback(
     MapLibreMapController mapLibreMapController,
     DirectionRouteResponse directionRouteResponse,
     double zoomLevel,

@@ -24,12 +24,16 @@ class NavigationWrapperScreen extends StatefulWidget {
   /// [DirectionRouteResponse] instance
   ///
   final DirectionRouteResponse directionRouteResponse;
+  final Function(UserLocation) onUpdateUserLocation;
+  final bool enableSimulation;
 
   /// [WrapperScreen] constructor
   ///
   const NavigationWrapperScreen({
     super.key,
     required this.directionRouteResponse,
+    required this.enableSimulation,
+    required this.onUpdateUserLocation
   });
 
   @override
@@ -60,6 +64,7 @@ class _WrapperScreenState extends State<NavigationWrapperScreen> {
 
   @override
   Widget build(BuildContext context) {
+    mapScreenController.setOnUserLocationUpdate(widget.onUpdateUserLocation);
     return UserSpeedProvider(
       userSpeedNotifier: userSpeedNotifier,
       child: NavigationInstructionProvider(
@@ -68,7 +73,7 @@ class _WrapperScreenState extends State<NavigationWrapperScreen> {
           mapController: mapScreenController,
           child: AudioInstructionProvider(
             audioInstructionController: audioInstructionController,
-            child: MapRouteNavigationScreenPage(widget.directionRouteResponse),
+            child: MapRouteNavigationScreenPage(widget.directionRouteResponse, widget.enableSimulation),
           ),
         ),
       ),

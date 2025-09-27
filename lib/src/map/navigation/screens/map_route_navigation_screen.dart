@@ -9,6 +9,7 @@ import 'package:graphhooper_route_navigation/src/map/navigation/widgets/map_comp
 import 'package:graphhooper_route_navigation/src/map/navigation/widgets/map_widget.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/widgets/my_location_zoom_icon_widget.dart';
 import 'package:graphhooper_route_navigation/src/map/navigation/widgets/navigation_info_widget.dart';
+import 'package:graphhooper_route_navigation/src/map/navigation/widgets/simulate_btn_widget.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
 import '../model/direction_route_response.dart';
 
@@ -16,6 +17,7 @@ class MapRouteNavigationScreenPage extends StatefulWidget {
   /// [DirectionRouteResponse] instance
   ///
   final DirectionRouteResponse directionRouteResponse;
+  final bool allowSimulation;
 
   /// compass icon data
   ///
@@ -24,7 +26,7 @@ class MapRouteNavigationScreenPage extends StatefulWidget {
 
   /// Constructor
   ///
-  const MapRouteNavigationScreenPage(this.directionRouteResponse, {super.key});
+  const MapRouteNavigationScreenPage(this.directionRouteResponse, this.allowSimulation, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -104,7 +106,10 @@ class MapRouteNavigationScreenPageState
             const SizedBox(
               height: 20.0,
             ),
-            const AudioIconWidget(),
+            widget.allowSimulation ?
+                const SimulateButton() :
+                const AudioIconWidget()
+            ,
             const SizedBox(
               height: 20.0,
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:graphhooper_route_navigation/graphhooper_route_navigation.dart';
@@ -22,6 +23,11 @@ class MapScreenController extends ChangeNotifier {
   /// [DirectionRouteResponse] instance variable that comes from Api Call.
   ///
   final DirectionRouteResponse directionRouteResponse;
+
+  /// [UserLocation] location(latitude, longitude) instance of user location 
+  Function(UserLocation)? _onUpdateUserLocation;
+
+  Function(UserLocation)? get OnUserLocationUpdated => _onUpdateUserLocation;
 
   /// Creates [MapScreenController] instance
   ///
@@ -105,6 +111,10 @@ class MapScreenController extends ChangeNotifier {
     if (extraFunc != null) {
       extraFunc.call();
     }
+  }
+
+  void setOnUserLocationUpdate(Function(UserLocation) callback) {
+    _onUpdateUserLocation = callback;
   }
 
   /// Method to add Source and Line layer
@@ -308,6 +318,9 @@ class MapScreenController extends ChangeNotifier {
                 endLatLng: LatLng(points[count + 1][1], points[count + 1][0])),
           );
 
+          // call onUpdateUserLocation callback
+          _onUpdateUserLocation?.call(simulatedUserLocation);
+
           // animate camera with new location
           await updateUserLocationCircleAndAnimate(simulatedUserLocation);
 
@@ -350,6 +363,10 @@ class MapScreenController extends ChangeNotifier {
                 y: 0.0,
                 z: 0.0,
                 timestamp: userLocation.timestamp));
+                
+        
+          // call onUpdateUserLocation callback
+          _onUpdateUserLocation?.call(simulatedUserLocation);
 
         // use map controller to animate camera with bearing value
         await updateUserLocationCircleAndAnimate(simulatedUserLocation);
@@ -371,7 +388,8 @@ class MapScreenController extends ChangeNotifier {
     required UserLocation userLocation,
   }) {
     this.userLocation = userLocation;
-
+              // call onUpdateUserLocation callback
+    _onUpdateUserLocation?.call(userLocation);
     // animate camera
     mapController?.animateCamera(CameraUpdate.newLatLng(userLocation.position));
   }

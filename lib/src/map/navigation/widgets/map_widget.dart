@@ -144,7 +144,7 @@ class _MapWidgetState extends State<MapWidget> {
       compassEnabled: false,
       compassViewPosition: CompassViewPosition.topRight,
       myLocationTrackingMode: MyLocationTrackingMode.trackingGps,
-      myLocationRenderMode: MyLocationRenderMode.gps,
+      myLocationRenderMode: MyLocationRenderMode.compass,
 
       onUserLocationUpdated: (userLocation) {
         // navigation instruction controller
